@@ -3,16 +3,14 @@ dotenv.config();
 import express from 'express';
 const app = express();
 import morgan from 'morgan';
-import jobRouter from './routes/jobRouter.js';
+import jobRouter from './routers/jobRouter.js';
 import mongoose from 'mongoose';
-
-
 import errorHandlerMiddleware from './middleware/errorHandlerMiddleware.js';
-
+import authRouter from './routers/authRouter.js';
 
 if (process.env.NODE_ENV === 'development') {
     app.use(morgan('dev'));
-  }
+}
 
 app.use(express.json());
 
@@ -21,6 +19,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/v1/jobs', jobRouter);
+app.use('/api/v1/auth', authRouter);
 
 // GET ALL JOBS
 app.get('/api/v1/jobs', );
